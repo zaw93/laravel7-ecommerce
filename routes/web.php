@@ -19,6 +19,7 @@ Route::get('/about', 'PageController@about')->name('about');
 Route::get('/post', 'PageController@post')->name('post');
 Route::get('/contact', 'PageController@contact')->name('contact');
 
+// CRUD BACKEND
 Route::resource('/category', 'CategoryController');
 Route::resource('/subcategory', 'SubcategoryController');
 Route::resource('/brand', 'BrandController');
