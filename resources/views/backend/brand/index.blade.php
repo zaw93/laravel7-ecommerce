@@ -52,11 +52,12 @@
                 </tr>
               </thead>
               <tbody>
+
                 @foreach ($brands as $brand)
                   <tr>
                     <td>{{ ++$loop->index }}</td>
                     <td>
-                      <img src="{{ '/storage/' . $brand->photo }}" class="avatar avatar-xl bg-white mr-5" alt="">
+                      <img src="{{ $brand->photo_path }}" class="avatar avatar-xl bg-white mr-5" alt="">
                       {{ $brand->name }}
                     </td>
                     <td>{{ $brand->created_at->toFormattedDateString() }}</td>
@@ -98,11 +99,11 @@
           </div>
         </div>
         <form action="" method="POST" id="deleteModalForm">
+          @csrf
+          @method('DELETE')
           <div class="modal-footer">
-            @csrf
-            @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </form>
       </div>
@@ -117,7 +118,7 @@
       $('.btn-delete').click(function() {
         var actionAttr = $(this).data('route');
         $('#deleteModalForm').attr('action', actionAttr);
-        // $('#deleteModal').modal('show');
+        $('#deleteModal').modal('show');
       });
     });
   </script>

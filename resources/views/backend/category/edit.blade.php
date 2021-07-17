@@ -67,7 +67,7 @@
                     @error('photo')
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <img src="{{ '/storage/' . $category->photo }}" alt="photo" class="avatar avatar-xl bg-white mt-3">
+                    <img src="{{ $category->photo_path }}" alt="photo" class="avatar avatar-xl bg-white mt-3">
                   </div>
                 </div>
 

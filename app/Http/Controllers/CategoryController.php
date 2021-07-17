@@ -40,7 +40,7 @@ class CategoryController extends Controller
   {
     $request->validate([
       'name' => 'required|unique:categories|max:255|min:4',
-      'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:1024',
+      'photo' => 'required|mimes:jpg,jpeg,png,webp|max:1024',
     ]);
 
     if ($request->file()) {
@@ -58,6 +58,8 @@ class CategoryController extends Controller
 
     return redirect()->route('category.index');
   }
+
+
 
   /**
    * Display the specified resource.
@@ -92,7 +94,7 @@ class CategoryController extends Controller
   {
     $request->validate([
       'name' => 'required|max:255|min:4',
-      'photo' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:1024',
+      'photo' => 'sometimes|mimes:jpg,jpeg,png,webp|max:1024',
     ]);
 
     if ($request->file()) {

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +15,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'PageController@home')->name('home');
-Route::get('/about', 'PageController@about')->name('about');
-Route::get('/post', 'PageController@post')->name('post');
-Route::get('/contact', 'PageController@contact')->name('contact');
+// FRONTEND
+Route::get('/', 'PageController@index')->name('index');
+
+Route::get('/product/{id}', 'PageController@show')->name('product');
+
+Route::get('/cart', 'PageController@cart')->name('cart');
+
+Route::get('/quickview/{item}', 'PageController@quickView')->name('quickview');
+
+Route::post('/search', 'SearchController@search')->name('search');
+
 
 // CRUD BACKEND
-Route::resource('/category', 'CategoryController');
-Route::resource('/subcategory', 'SubcategoryController');
-Route::resource('/brand', 'BrandController');
-Route::resource('/item', 'ItemController');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+  Route::resource('/category', 'CategoryController');
+  Route::resource('/subcategory', 'SubcategoryController');
+  Route::resource('/brand', 'BrandController');
+  Route::resource('/item', 'ItemController');
+});
+
 Route::resource('/order', 'OrderController');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

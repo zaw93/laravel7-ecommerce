@@ -47,30 +47,44 @@
                 <tr>
                   <th>#</th>
                   <th>NAME</th>
+                  <th>BRAND</th>
+                  <th>PRICE</th>
                   <th>CREATED AT</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                {{-- @foreach ($categories as $category) --}}
-                <tr>
-                  <td></td>
-                  <td>
-                    <img src="" class="avatar avatar-xl bg-white mr-5" alt="">
-                    {{-- {{ $category->name }} --}}
-                  </td>
-                  <td></td>
-                  <td>
-                    <a href="" class="btn btn-icon btn-info">
-                      <span class="btn-inner--icon"><i class="far fa-edit"></i></span>
-                    </a>
-                    <button type="button" data-route="" data-toggle="modal" data-target="#deleteModal"
-                      class="btn btn-icon btn-danger btn-delete">
-                      <span class="btn-inner--icon"><i class="fas fa-trash-alt"></i></span>
-                    </button>
-                  </td>
-                </tr>
-                {{-- @endforeach --}}
+                @foreach ($items as $item)
+                  <tr>
+                    <td>{{ ++$loop->index }}</td>
+                    <td class="d-flex align-items-center">
+                      <img src="{{ $item->photo_path }}" class="avatar avatar-xl bg-white mr-5" alt="">
+                      <div>
+                        <div class="h3">{{ $item->codeno }}</div>
+                        <div>{{ $item->trunc_name }}</div>
+                      </div>
+                    </td>
+                    <td>{{ $item->brand->name }}</td>
+                    <td>
+                      @if ($item->discount)
+                        <div>{{ number_format($item->discount, 0, '', ',') }} Ks</div>
+                        <div><del>{{ number_format($item->price, 0, '', ',') }} Ks</del></div>
+                      @else
+                        <div>{{ number_format($item->price, 0, '', ',') }} Ks</div>
+                      @endif
+                    </td>
+                    <td>{{ $item->created_at->toFormattedDateString() }}</td>
+                    <td>
+                      <a href="{{ route('item.edit', $item) }}" class="btn btn-icon btn-info">
+                        <span class="btn-inner--icon"><i class="far fa-edit"></i></span>
+                      </a>
+                      <button type="button" data-route="{{ route('item.destroy', $item) }}" data-toggle="modal"
+                        data-target="#deleteModal" class="btn btn-icon btn-danger btn-delete">
+                        <span class="btn-inner--icon"><i class="fas fa-trash-alt"></i></span>
+                      </button>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

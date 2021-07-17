@@ -56,7 +56,7 @@
                   <tr>
                     <td>{{ ++$loop->index }}</td>
                     <td>
-                      <img src="{{ '/storage/' . $category->photo }}" class="avatar avatar-xl bg-white mr-5" alt="">
+                      <img src="{{ $category->photo_path }}" class="avatar avatar-xl bg-white mr-5" alt="">
                       {{ $category->name }}
                     </td>
                     <td>{{ $category->created_at->toFormattedDateString() }}</td>
@@ -98,11 +98,11 @@
           </div>
         </div>
         <form action="" method="POST" id="deleteModalForm">
+          @csrf
+          @method('DELETE')
           <div class="modal-footer">
-            @csrf
-            @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </form>
       </div>

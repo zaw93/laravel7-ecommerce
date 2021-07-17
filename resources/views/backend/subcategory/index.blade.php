@@ -97,9 +97,9 @@
           </div>
         </div>
         <form action="" method="POST" id="deleteModalForm">
+          @csrf
+          @method('DELETE')
           <div class="modal-footer">
-            @csrf
-            @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
           </div>

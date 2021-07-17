@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('backend/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"
     type="text/css">
   <!-- Page plugins -->
+  <link rel="stylesheet" href="{{ asset('backend/assets/vendor/quill/dist/quill.core.css') }}" type="text/css">
   <!-- Data Tables -->
   <link rel="stylesheet"
     href="{{ asset('backend/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -89,9 +90,9 @@
 
 
             <li class="nav-item">
-              <a class="nav-link" href="../../pages/widgets.html">
-                <i class="ni ni-archive-2 text-green"></i>
-                <span class="nav-link-text">Widgets</span>
+              <a class="nav-link" href="{{ route('order.index') }}">
+                <i class="ni ni-basket text-primary"></i>
+                <span class="nav-link-text">Order</span>
               </a>
             </li>
             <li class="nav-item">
@@ -175,7 +176,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">{{ Auth::user()->name }}</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>2 hrs ago</small>
@@ -326,7 +327,7 @@
                     <img alt="Image placeholder" src="{{ asset('backend/assets/img/theme/team-4.jpg') }}">
                   </span>
                   <div class="media-body ml-2 d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                    <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
                   </div>
                 </div>
               </a>
@@ -351,7 +352,11 @@
                   <span>Support</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+                </form>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>
@@ -370,13 +375,13 @@
   <!-- Scripts -->
   <!-- Core -->
   <script src="{{ asset('backend/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}
-                                                                              "></script>
+  <script src="{{ asset('backend/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('backend/assets/vendor/js-cookie/js.cookie.js') }}"></script>
   <script src="{{ asset('backend/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
   <script src="{{ asset('backend/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
 
   <!-- Optional JS -->
+  <script src="{{ asset('backend/assets/vendor/quill/dist/quill.min.js') }}"></script>
   <!-- Data Tables -->
   <script src="{{ asset('backend/assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('backend/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -388,7 +393,7 @@
   <script src="{{ asset('backend/assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
   <!-- Argon JS -->
-  <script src="{{ asset('backend/assets/js/argon.js?v=1.1.0') }}"></script>
+  <script src="{{ asset('backend/assets/js/argon.js') }}"></script>
 
   <!-- Custom JS -->
   @yield('script');

@@ -39,9 +39,17 @@ class BrandController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'name' => 'required|unique:brands|max:255',
+      'name' => 'required|unique:brands|max:255|min:4',
       'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:1024',
     ]);
+
+
+
+
+
+
+
+
 
     if ($request->file()) {
       $fileName = time() . '-' . $request->photo->getClientOriginalName();

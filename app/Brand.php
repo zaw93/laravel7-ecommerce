@@ -10,4 +10,15 @@ class Brand extends Model
   use SoftDeletes;
 
   protected $fillable = ['name', 'photo'];
+
+  // Defining an accessor
+  public function getPhotoPathAttribute()
+  {
+    return '/storage/' . $this->photo;
+  }
+
+  public function items()
+  {
+    return $this->hasMany(Item::class);
+  }
 }

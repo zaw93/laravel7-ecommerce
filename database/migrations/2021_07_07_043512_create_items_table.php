@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
       $table->string('name');
       $table->text('photo');
       $table->integer('price');
-      $table->integer('discount');
+      $table->integer('discount')->nullable();
       $table->text('description');
       $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
       $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
