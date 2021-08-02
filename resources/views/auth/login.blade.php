@@ -6,15 +6,14 @@
   <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
     <div class="container">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Login</li>
       </ol>
     </div><!-- End .container -->
   </nav><!-- End .breadcrumb-nav -->
 
   <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
-    style="background-image: url({{ asset('frontend/assets/images/backgrounds/login-bg.jpg') }})">
+    style="background: linear-gradient(rgba(151, 117, 86, 0.65),rgba(151, 117, 86, 0.65)), url({{ asset('frontend/assets/images/backgrounds/login-background.jpg') }}); background-size: cover;">
     <div class="container">
       <div class="form-box">
         <div class="form-tab">

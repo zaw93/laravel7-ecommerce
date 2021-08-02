@@ -8,10 +8,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Molla - Bootstrap eCommerce Template</title>
-  <meta name="keywords" content="HTML5 Template">
-  <meta name="description" content="Molla - Bootstrap eCommerce Template">
-  <meta name="author" content="p-themes">
+  <title>Molla - No.1 Premium Digital Store in Myanmar!</title>
+  <meta name="keywords" content="Digital Store">
+  <meta name="description" content="Molla - No.1 Premium Digital Store in Myanmar!">
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180"
     href="{{ asset('frontend/assets/images/icons/apple-touch-icon.png') }}">
@@ -32,190 +31,25 @@
   <link rel="stylesheet" href="{{ asset('frontend/assets/vendor/line-awesome/css/line-awesome.min.css') }}">
   <!-- Plugins CSS File -->
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/owl-carousel/owl.carousel.css') }}">
-  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/owl.carousel.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/magnific-popup.css') }}">
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/jquery.countdown.css') }}">
   <!-- Main CSS File -->
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('frontend/assets/css/skins/skin-demo-4.css') }}">
-  <link rel="stylesheet" href="{{ asset('frontend/assets/css/demos/demo-4.css') }}">
-  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/nouislider/nouislider.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom-skin.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/demo.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/nouislider.css') }}">
 </head>
 
 <body>
   <div class="page-wrapper">
     <header class="header header-intro-clearance header-4">
-      <div class="header-top">
-        <div class="container">
-          <div class="header-left">
-            <div class="header-dropdown">
-              <a href="#">USD</a>
-              <div class="header-menu">
-                <ul>
-                  <li><a href="#">EUR</a></li>
-                  <li><a href="#">USD</a></li>
-                </ul>
-              </div><!-- End .header-menu -->
-            </div><!-- End .header-dropdown -->
 
-            <div class="header-dropdown">
-              <a href="#">Eng</a>
-              <div class="header-menu">
-                <ul>
-                  <li><a href="#">English</a></li>
-                  <li><a href="#">French</a></li>
-                  <li><a href="#">Spanish</a></li>
-                </ul>
-              </div><!-- End .header-menu -->
-            </div><!-- End .header-dropdown -->
-          </div><!-- End .header-left -->
+      <x-header.top />
 
-          <div class="header-right">
-            <ul class="top-menu">
-              <li>
-                <a href="#">Links</a>
-                <ul>
-                  <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
-                  @guest
-                    <li><a href="{{ route('login') }}"><i class="icon-user"></i>Login</a></li>
-                  @else
-                    <li class="dropdown profile-dropdown">
-                      <a class="dropdown-toggle" role="button" data-toggle="dropdown">
-                        {{ Auth::user()->name }}
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a href="" class="dropdown-item">
-                          {{ __('My Account') }}
-                        </a>
-                        <a href="" class="dropdown-item"
-                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                          {{ __('Logout') }}
-                        </a>
-                        <form action="{{ route('logout') }}" id="logout-form" method="POST" class="d-none">
-                          @csrf
-                        </form>
-                      </div>
-                    </li>
-                  @endguest
+      <x-header.middle />
 
-                </ul>
-              </li>
-            </ul><!-- End .top-menu -->
-          </div><!-- End .header-right -->
-        </div>
-      </div><!-- End .header-top -->
-
-      <div class="header-middle">
-        <div class="container">
-          <div class="header-left">
-            <button class="mobile-menu-toggler">
-              <span class="sr-only">Toggle mobile menu</span>
-              <i class="icon-bars"></i>
-            </button>
-
-            <a href="index.html" class="logo">
-              <img src="{{ asset('frontend/assets/images/demos/demo-4/logo.png') }}" alt="Molla Logo" width="105"
-                height="25">
-            </a>
-          </div><!-- End .header-left -->
-
-          <div class="header-center">
-            <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-              <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-              <form class="search-form" action="#" method="get">
-                <div class="header-search-wrapper search-wrapper-wide">
-                  <label for="search_input" class="sr-only">Search</label>
-                  <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                  <input type="search" class="form-control" name="search_input" id="search_input"
-                    placeholder="Search product ..." required autocomplete="off">
-                </div><!-- End .header-search-wrapper -->
-
-
-                <div id="search-dropdown" class="search-dropdown dropdown-search-products">
-                  {{-- <div class="product">
-                    <figure class="search-image-container">
-                      <a href="" class="product-image">
-                        <img src="/storage/images/item/1626036950-ipad-air-select-wifi-gold-202009.png"
-                          alt=" Apple iPad Air Wi-Fi Gold 64GB">
-                      </a>
-                    </figure>
-
-                    <div class="product-search-details">
-                      <h4 class="product-search-title">
-                        <a href="product.html">Apple iPad Air Wi-Fi Gold 64GB</a>
-                      </h4>
-                      <span class="product-search-price"><strike>1,350,000 Ks</strike></span>
-                      <span class="product-search-price new-price ml-2">1,200,000 Ks</span>
-                    </div>
-                  </div>
-
-                  <div class="product">
-                    <figure class="search-image-container">
-                      <a href="" class="product-image">
-                        <img src="/storage/images/item/1626036950-ipad-air-select-wifi-gold-202009.png"
-                          alt=" Apple iPad Air Wi-Fi Gold 64GB">
-                      </a>
-                    </figure>
-
-                    <div class="product-search-details">
-                      <h4 class="product-search-title">
-                        <a href="product.html">Apple iPad Air Wi-Fi Gold 64GB</a>
-                      </h4>
-                      <span class="product-search-price">1,350,000 Ks</span>
-                    </div>
-                  </div> --}}
-                </div><!-- End .cart-product -->
-
-              </form>
-            </div><!-- End .header-search -->
-          </div>
-
-          <div class="header-right">
-            <div class="wishlist">
-              <a href="wishlist.html" title="Wishlist">
-                <div class="icon">
-                  <i class="icon-heart-o"></i>
-                  <span class="wishlist-count badge">3</span>
-                </div>
-                <p>Wishlist</p>
-              </a>
-            </div><!-- End .compare-dropdown -->
-
-            <div class="dropdown cart-dropdown">
-              <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" data-display="static">
-                <div class="icon">
-                  <i class="icon-shopping-cart"></i>
-                  <span class="cart-count">0</span>
-                </div>
-                <p>Cart</p>
-              </a>
-
-              <div id="dropdown-cart-menu" class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-cart-products">
-                  <!-- Display from local storage -->
-                </div><!-- End .cart-product -->
-
-                <div class="dropdown-cart-total">
-                  <span>Total</span>
-
-                  <span class="cart-total-price dropdown-cart-total-price">0</span>
-                </div><!-- End .dropdown-cart-total -->
-
-                <div class="dropdown-cart-action">
-                  <a href="{{ route('cart') }}" class="btn btn-primary">View Cart</a>
-                  <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                      class="icon-long-arrow-right"></i></a>
-                </div><!-- End .dropdown-cart-total -->
-              </div><!-- End .dropdown-menu -->
-            </div><!-- End .cart-dropdown -->
-          </div><!-- End .header-right -->
-        </div><!-- End .container -->
-      </div><!-- End .header-middle -->
-
-      @yield('header-bottom')
+      <x-header.bottom :categories="$categories" />
 
     </header><!-- End .header -->
 
@@ -234,7 +68,7 @@
           <div class="row">
             <div class="col-sm-6 col-lg-3">
               <div class="widget widget-about">
-                <img src="{{ asset('frontend/assets/images/demos/demo-4/logo-footer.png') }}" class="footer-logo"
+                <img src="{{ asset('frontend/assets/images/logo-footer.png') }}" class="footer-logo"
                   alt="Footer Logo" width="105" height="25">
                 <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu
                   erat. </p>
@@ -563,9 +397,10 @@
   <script src="{{ asset('frontend/assets/js/jquery.plugin.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/jquery.magnific-popup.min.js') }}"></script>
   <script src="{{ asset('frontend/assets/js/jquery.countdown.min.js') }}"></script>
+  @yield('plugin-scripts')
   <!-- Main JS File -->
   <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-  <script src="{{ asset('frontend/assets/js/demos/demo-4.js') }}"></script>
+  <script src="{{ asset('frontend/assets/js/custom-skin.js') }}"></script>
 
   <!-- Custom JS File -->
   <script src="{{ asset('frontend/assets/js/custom-functions.js') }}"></script>
@@ -573,7 +408,5 @@
   @stack('scripts')
 </body>
 
-
-<!-- molla/index-4.html  22 Nov 2019 09:54:18 GMT -->
 
 </html>

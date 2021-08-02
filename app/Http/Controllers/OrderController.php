@@ -58,7 +58,7 @@ class OrderController extends Controller
       $order->total = $subtotal;
       $order->note = '';
       $order->status = 0;
-      $order->user_id = 1;
+      $order->user_id = auth()->user()->id;
       $order->save();
 
       // insert item_order

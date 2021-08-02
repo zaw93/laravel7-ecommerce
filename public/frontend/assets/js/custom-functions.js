@@ -1,34 +1,15 @@
 // Initialize function for qty inputs plugin
-function quantityInputs() {
-    if ($.fn.inputSpinner) {
-        $("input[type='number']").inputSpinner({
-            decrementButton: '<i class="icon-minus"></i>',
-            incrementButton: '<i class="icon-plus"></i>',
-            groupClass: "input-spinner",
-            buttonsClass: "btn-spinner",
-            buttonsWidth: "26px"
-        });
-    }
-}
-
-// Counting cart items quantity
-function countCartItems() {
-    let cart_arr = JSON.parse(localStorage.getItem("cart"));
-    let count = 0;
-
-    if (cart_arr && cart_arr.length > 0) {
-        $.each(cart_arr, (i, item) => {
-            count += item.qty;
-        });
-
-        if (count > 0) {
-            // $(".cart-count").show();
-            $(".cart-count").text(count);
-        }
-    } else {
-        $(".cart-count").text(count);
-    }
-}
+// function quantityInputs() {
+//     if ($.fn.inputSpinner) {
+//         $("input[type='number']").inputSpinner({
+//             decrementButton: '<i class="icon-minus"></i>',
+//             incrementButton: '<i class="icon-plus"></i>',
+//             groupClass: "input-spinner",
+//             buttonsClass: "btn-spinner",
+//             buttonsWidth: "26px"
+//         });
+//     }
+// }
 
 // Add To Cart function
 function addToCart(item) {
@@ -49,6 +30,25 @@ function addToCart(item) {
 
     renderCartDropdown();
     countCartItems();
+}
+
+// Counting cart items quantity
+function countCartItems() {
+    let cart_arr = JSON.parse(localStorage.getItem("cart"));
+    let count = 0;
+
+    if (cart_arr && cart_arr.length > 0) {
+        $.each(cart_arr, (i, item) => {
+            count += item.qty;
+        });
+
+        if (count > 0) {
+            // $(".cart-count").show();
+            $(".cart-count").text(count);
+        }
+    } else {
+        $(".cart-count").text(count);
+    }
 }
 
 // Render Cart Dropdown
@@ -100,7 +100,10 @@ function renderCartDropdown() {
         });
 
         $(".dropdown-cart-products").html(html);
-        $(".dropdown-cart-total-price").html(`${subtotal.toLocaleString()} Ks`);
+        $(".dropdown-cart-total").html(`
+          <span>Total</span>
+          <span class="cart-total-price dropdown-cart-total-price">${subtotal.toLocaleString()} Ks</span>
+          `);
     } else {
         html += `
           <div class="text-center">
@@ -112,23 +115,6 @@ function renderCartDropdown() {
         $(".dropdown-cart-products").html(html);
         $(".dropdown-cart-total").empty();
     }
-}
-
-// Remove Item from dropdown cart
-function removeDropdownCartItem(id) {
-    let cart_arr = JSON.parse(localStorage.getItem("cart"));
-
-    $.each(cart_arr, function(i, item) {
-        if (id === item.id) {
-            cart_arr = cart_arr.filter(cart_item => cart_item.id != item.id);
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart_arr));
-
-        renderCartItems();
-        renderCartDropdown();
-        countCartItems();
-    });
 }
 
 // Render cart items to cart table
@@ -170,7 +156,7 @@ function renderCartItems() {
                       : item.price.toLocaleString()
               } Ks</td>
               <td class="quantity-col">
-                <div class="cart-product-quantity">
+                <div id="product-cart-quantity" class="cart-product-quantity">
                   <input type="number" class="form-control qty-input" data-key="${
                       item.id
                   }" value="${
@@ -194,7 +180,15 @@ function renderCartItems() {
         $(".total").html(`${subtotal.toLocaleString()} Ks`);
 
         // Initialize Qty Input Btns
-        quantityInputs();
+        if ($.fn.inputSpinner) {
+            $("#product-cart-quantity .qty-input").inputSpinner({
+                decrementButton: '<i class="icon-minus"></i>',
+                incrementButton: '<i class="icon-plus"></i>',
+                groupClass: "input-spinner",
+                buttonsClass: "btn-spinner",
+                buttonsWidth: "26px"
+            });
+        }
     } else {
         html += `
         <div class="container">
@@ -224,9 +218,7 @@ function increaseQuantity(key) {
             }
             localStorage.setItem("cart", JSON.stringify(cart_arr));
 
-            renderCartItems();
-            renderCartDropdown();
-            countCartItems();
+            updateCart();
         });
     }
 }
@@ -248,9 +240,7 @@ function decreaseQuantity(key) {
             }
             localStorage.setItem("cart", JSON.stringify(cart_arr));
 
-            renderCartItems();
-            renderCartDropdown();
-            countCartItems();
+            updateCart();
         });
     }
 }
@@ -266,9 +256,7 @@ function removeCartItem(id) {
 
         localStorage.setItem("cart", JSON.stringify(cart_arr));
 
-        renderCartItems();
-        renderCartDropdown();
-        countCartItems();
+        updateCart();
     });
 }
 

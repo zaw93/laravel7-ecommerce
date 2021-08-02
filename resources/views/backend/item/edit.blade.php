@@ -35,10 +35,12 @@
 
         <div class="card">
           <div class="card-header">
-            <div class="row align-items-center">
-              <div class="col-12">
-                <h3 class="mb-0">Edit Item Form</h3>
-              </div>
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="mb-0">Edit Item Form</h3>
+              <a href="{{ route('item.gallery-edit', $item) }}" class="btn btn-icon btn-primary" type="submit">
+                <span class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                <span class="btn-inner--text">Update Gallery</span>
+              </a>
             </div>
           </div>
           <div class="card-body">

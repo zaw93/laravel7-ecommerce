@@ -84,8 +84,6 @@
                   </div>
                 </div>
 
-                {{-- Gallery Input --}}
-
                 {{-- Price Input --}}
                 <div class="form-group row">
                   <label class="col-md-2 col-form-label form-control-label">Price</label>
@@ -136,7 +134,7 @@
                 </div>
 
                 {{-- Description Input --}}
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                   <label for="description" class="col-md-2 col-form-label form-control-label">Description</label>
                   <div class="col-md-10">
                     <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3"
@@ -145,16 +143,15 @@
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                   </div>
-                </div>
-
-                {{-- Description Input with Text Editor --}}
-                {{-- <div class="form-group row">
-                  <label for="full-des" class="col-md-2 col-form-label form-control-label">Full Des</label>
-                  <div class="col-md-10 h-100">
-                    <div data-toggle="quill" data-quill-placeholder="Full Description"></div>
-                  </div>
                 </div> --}}
 
+                {{-- Description Input with CKeditor --}}
+                <div class="form-group row">
+                  <label for="editor" class="col-md-2 col-form-label form-control-label">Description</label>
+                  <div class="col-md-10">
+                    <textarea name="description" id="editor"></textarea>
+                  </div>
+                </div>
 
                 {{-- Brand Input --}}
                 <div class="form-group row">
@@ -212,4 +209,39 @@
 
   </div>
 
+@endsection
+
+
+@section('script')
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editor'), {
+        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        heading: {
+          options: [{
+              model: 'paragraph',
+              title: 'Paragraph',
+              class: 'ck-heading_paragraph'
+            },
+            {
+              model: 'heading1',
+              view: 'h1',
+              title: 'Heading 1',
+              class: 'ck-heading_heading1'
+            },
+            {
+              model: 'heading2',
+              view: 'h2',
+              title: 'Heading 2',
+              class: 'ck-heading_heading2'
+            }
+          ]
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    // const names = ClassicEditor.builtinPlugins.map(plugin => plugin.pluginName);
+  </script>
 @endsection

@@ -48,10 +48,11 @@ class ItemController extends Controller
    */
   public function store(Request $request)
   {
+
     $request->validate([
       'codeno' => 'required|unique:items,codeno|max:255|min:4',
       'name' => 'required|unique:items,name|max:255|min:4',
-      'photo' => 'required|mimes:jpg,jpeg,png,webp|max:1024',
+      'photo' => 'required|mimes:jpg,jpeg,png,webp,svg|max:1024',
       'unit_price' => 'required|numeric',
       'discount' => 'nullable|numeric',
       'description' => 'required|string',
@@ -67,7 +68,7 @@ class ItemController extends Controller
       $path = $request->file('photo')->storeAs('images/item', $fileName);
     }
 
-    Item::create([
+    $item = Item::create([
       'codeno' => $request->codeno,
       'name' => $request->name,
       'photo' => $path,
@@ -78,7 +79,9 @@ class ItemController extends Controller
       'subcategory_id' => $request->subcategory_id,
     ]);
 
-    return redirect()->route('item.index');
+    if ($item) {
+      return redirect()->route('item.gallery-create', $item);
+    }
   }
 
   /**
@@ -154,7 +157,7 @@ class ItemController extends Controller
 
     $item->save();
 
-    return redirect()->route('item.index');
+    return redirect()->route('item.index')->with('successs', 'Item updated successfully');
   }
 
   /**
@@ -167,6 +170,6 @@ class ItemController extends Controller
   {
     $item->delete();
 
-    return redirect()->route('item.index');
+    return back()->with('success', 'Item deleted successfully');
   }
 }

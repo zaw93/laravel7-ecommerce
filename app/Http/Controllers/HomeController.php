@@ -24,8 +24,6 @@ class HomeController extends Controller
    */
   public function index()
   {
-    // return view('home');
-
     $roles = Auth::user()->getRoleNames();
 
     if ($roles->contains('admin')) {
@@ -33,7 +31,5 @@ class HomeController extends Controller
     } else {
       return redirect()->route('index');
     }
-
-    // return redirect()->route('category.index');
   }
 }

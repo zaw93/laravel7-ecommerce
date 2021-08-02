@@ -15,13 +15,20 @@ $(document).ready(function() {
         };
 
         addToCart(item);
+
+        $(".btn-cart").addClass("btn-hide");
+        $(".btn-cart").attr("disabled", true);
+        setTimeout(() => {
+            $(".btn-cart").removeClass("btn-hide");
+            $(".btn-cart").attr("disabled", false);
+        }, 1000);
     });
 
     // Item Remove from Cart Dropdown
     $("#dropdown-cart-menu").on("click", ".btn-remove", function() {
         let id = $(this).data("id");
 
-        removeDropdownCartItem(id);
+        removeCartItem(id);
     });
 
     // delay function
@@ -86,7 +93,7 @@ $(document).ready(function() {
 
                             <div class="product-search-details">
                               <h4 class="product-search-title">
-                                <a href="product.html">${data.name}</a>
+                                <a href="/product/${data.id}">${data.name}</a>
                               </h4>
                               ${price_html}
                             </div>

@@ -51,12 +51,14 @@ class CategoryController extends Controller
       $path = $request->file('photo')->storeAs('images/category', $fileName, 'public');
     }
 
-    Category::create([
+    $category = Category::create([
       'name' => $request->name,
       'photo' => $path,
     ]);
 
-    return redirect()->route('category.index');
+    if ($category) {
+      return redirect()->route('category.index')->with('success', 'New category created successfully!');
+    }
   }
 
 
@@ -114,7 +116,7 @@ class CategoryController extends Controller
     $category->photo = $path;
     $category->save();
 
-    return redirect()->route('category.index');
+    return redirect()->route('category.index')->with('success', 'Category updated successfully!');
   }
 
   /**
@@ -125,8 +127,12 @@ class CategoryController extends Controller
    */
   public function destroy(Category $category)
   {
+    foreach ($category->subcategories as $subcategory) {
+      $subcategory->delete();
+    }
+
     $category->delete();
 
-    return redirect()->route('category.index');
+    return back()->with('success', 'Category and its related subcategories deleted successfully');
   }
 }

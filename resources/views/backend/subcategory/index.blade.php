@@ -37,11 +37,14 @@
 
         <div class="card">
           <!-- Card header -->
-          <div class="card-header">
+          <div class="card-header d-flex align-items-center justify-content-between">
             <h3 class="mb-0">Subcategory List</h3>
+            @if (session('success'))
+              <x-dashboard.alert type="success" message="{{ session('success') }}" />
+            @endif
           </div>
 
-          <div class="table-responsive py-4">
+          <div id="example" class="table-responsive py-4">
             <table class="table table-flush align-items-center" id="datatable-basic">
               <thead class="thead-light">
                 <tr>
@@ -101,7 +104,7 @@
           @method('DELETE')
           <div class="modal-footer">
             <button type="submit" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </form>
       </div>
@@ -110,11 +113,14 @@
 @endsection
 
 
+
 @section('script')
   <script>
     $(document).ready(function() {
-      $('.btn-delete').click(function() {
+      $('#example tbody').on('click', '.btn-delete', function() {
+        // console.log(this);
         var actionAttr = $(this).data('route');
+        // console.log(actionAttr);
         $('#deleteModalForm').attr('action', actionAttr);
         // $('#deleteModal').modal('show');
       });

@@ -61,8 +61,6 @@
               <h6 class="heading-small text-muted mb-4">Create New Brand</h6>
               <div class="pl-lg-4">
 
-
-
                 <div class="form-group row">
                   <label for="name" class="col-md-2 col-form-label form-control-label">Name</label>
                   <div class="col-md-10">

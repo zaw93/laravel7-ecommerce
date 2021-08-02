@@ -7,43 +7,30 @@
             <a href="#one" class="carousel-dot active">
               <img src="{{ $item->photo_path }}">
             </a>
-            <a href="#two" class="carousel-dot">
-              <img src="{{ $item->photo_path }}">
-            </a>
-            <a href="#three" class="carousel-dot">
-              <img src="{{ $item->photo_path }}">
-            </a>
-            <a href="#four" class="carousel-dot">
-              <img src="{{ $item->photo_path }}">
-            </a>
+            @foreach ($item->gallery_photos as $gallery_photo)
+              <a href="#{{ $gallery_photo->id }}" class="carousel-dot">
+                <img src="{{ $gallery_photo->photo_path }}">
+              </a>
+            @endforeach
           </div>
           <div class="product-right">
             <div class="owl-carousel owl-theme owl-nav-inside owl-light mb-0" data-toggle="owl" data-owl-options='{
- "dots": false,
- "nav": false, 
- "URLhashListener": true,
- "responsive": {
- "900": {
- "nav": true,
- "dots": true
- }
- }
- }'>
+                "dots": false,
+                "nav": false, 
+                "URLhashListener": true,
+                "responsive": {
+                  "900": { "nav": true, "dots": true }
+                }
+              }'>
               <div class="intro-slide" data-hash="one">
                 <img src="{{ $item->photo_path }}" alt="Image Desc">
               </div><!-- End .intro-slide -->
 
-              <div class="intro-slide" data-hash="two">
-                <img src="{{ $item->photo_path }}" alt="Image Desc">
-              </div><!-- End .intro-slide -->
-
-              <div class="intro-slide" data-hash="three">
-                <img src="{{ $item->photo_path }}" alt="Image Desc">
-              </div><!-- End .intro-slide -->
-
-              <div class="intro-slide" data-hash="four">
-                <img src="{{ $item->photo_path }}" alt="Image Desc">
-              </div><!-- End .intro-slide -->
+              @foreach ($item->gallery_photos as $gallery_photo)
+                <div class="intro-slide" data-hash="{{ $gallery_photo->id }}">
+                  <img src="{{ $gallery_photo->photo_path }}" alt="Image Desc">
+                </div>
+              @endforeach
             </div>
           </div>
         </div>
@@ -68,10 +55,10 @@
           <span class="ratings-text">( 2 Reviews )</span>
         </div><!-- End .rating-container -->
 
-        <p class="product-txt">{{ Str::limit($item->description, 120) }}</p>
+        <p class="product-txt">{!! Str::limit($item->description, 100) !!}</p>
 
 
-        <div class="details-filter-row details-row-size">
+        <div id="product-quickView-quantity" class="details-filter-row details-row-size">
           <label for="qty">Qty:</label>
           <div class="product-details-quantity">
             <input type="number" id="qty" class="form-control qty-input" data-key="{{ $item->id }}" value="1"
@@ -87,6 +74,7 @@
             data-name="{{ $item->name }}" data-photo="{{ $item->photo_path }}" data-price="{{ $item->price }}"
             data-discount="{{ $item->discount }}">
             <span>add to cart</span>
+            <div class="spinner-border" role="status" aria-hidden="true"></div>
           </button>
         </div>
 
@@ -94,12 +82,12 @@
           <div class="product-cat">
             <div class="mb-1">
               <span>Brand:</span>
-              <a href="">{{ $item->brand->name }}</a>
+              <a href="#">{{ $item->brand->name }}</a>
             </div>
             <div>
               <span>Category:</span>
               <a href="#">{{ $item->subcategory->category->name }}</a>,
-              <a href="#">{{ $item->subcategory->name }}</a>
+              <a href="{{ route('collection', $item->subcategory) }}">{{ $item->subcategory->name }}</a>
             </div>
           </div><!-- End .product-cat -->
 

@@ -542,7 +542,6 @@ blockquote.text-white cite span {
     align-items: center;
 }
 .header-left,
-.header-center,
 .header-right {
     display: flex;
     align-items: center;
@@ -552,8 +551,8 @@ blockquote.text-white cite span {
     align-self: stretch;
 }
 .header-center {
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    align-items: center;
 }
 .logo {
     display: block;
@@ -1062,6 +1061,11 @@ blockquote.text-white cite span {
 .show {
     visibility: visible;
     opacity: 1;
+}
+
+#widget-brand.show {
+    max-height: 40vh;
+    overflow-y: scroll;
 }
 
 .wishlist-link {
@@ -6639,7 +6643,7 @@ p {
     font-size: 1.3rem;
     line-height: 1.2;
     letter-spacing: -0.01em;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
 }
 .product-cat a {
     color: inherit;
@@ -6851,6 +6855,7 @@ p {
     font-weight: 400;
     font-size: 1.3rem;
     letter-spacing: -0.01em;
+    text-transform: uppercase;
     transition: all 0.35s ease;
 }
 .btn-product:hover,
@@ -6921,6 +6926,21 @@ p {
 }
 .btn-cart:before {
     content: "\e812";
+}
+.btn-cart .spinner-border {
+    border-width: 0.15em;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: none;
+}
+.btn-hide .spinner-border {
+    display: block;
+}
+.btn-hide span {
+    display: none;
+}
+.btn-hide:before {
+    content: none;
 }
 .btn-wishlist {
     font-size: 1.6rem;
@@ -7847,10 +7867,10 @@ p {
 }
 @media screen and (min-width: 480px) {
     .just-action-icons-sm .btn-product span {
-        display: none;
+        /* display: none; */
     }
     .just-action-icons-sm .btn-product:before {
-        margin-right: 0;
+        margin-right: 0.9rem;
     }
 }
 @media screen and (min-width: 768px) {
@@ -10527,6 +10547,7 @@ button:focus {
     opacity: 1;
 }
 .filter-price {
+    max-width: 90%;
     padding-top: 0.2rem;
     padding-bottom: 3rem;
 }
@@ -10535,6 +10556,7 @@ button:focus {
     letter-spacing: -0.01em;
 }
 #filter-price-range {
+    font-weight: normal;
     color: #c96;
 }
 @media screen and (min-width: 576px) {

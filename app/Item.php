@@ -42,6 +42,11 @@ class Item extends Model
     return $this->belongsTo(Subcategory::class);
   }
 
+  public function gallery_photos()
+  {
+    return $this->hasMany(GalleryPhoto::class);
+  }
+
   public function orders()
   {
     return $this->belongsToMany(Order::class)

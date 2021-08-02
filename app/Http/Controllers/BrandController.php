@@ -43,26 +43,20 @@ class BrandController extends Controller
       'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:1024',
     ]);
 
-
-
-
-
-
-
-
-
     if ($request->file()) {
       $fileName = time() . '-' . $request->photo->getClientOriginalName();
 
       $path = $request->file('photo')->storeAs('images/brand', $fileName, 'public');
     }
 
-    Brand::create([
+    $brand = Brand::create([
       'name' => $request->name,
       'photo' => $path,
     ]);
 
-    return redirect()->route('brand.index');
+    if ($brand) {
+      return redirect()->route('brand.index')->with('success', 'New brand created successfully!');
+    }
   }
 
   /**
@@ -115,7 +109,7 @@ class BrandController extends Controller
     $brand->photo = $path;
     $brand->save();
 
-    return redirect()->route('brand.index');
+    return redirect()->route('brand.index')->with('success', 'Brand updated successfully!');
   }
 
   /**
@@ -126,8 +120,12 @@ class BrandController extends Controller
    */
   public function destroy(Brand $brand)
   {
+    foreach ($brand->items as $item) {
+      $item->delete();
+    }
+
     $brand->delete();
 
-    return redirect()->route('brand.index');
+    return back()->with('success', 'Brand and its related items deleted successfully');
   }
 }

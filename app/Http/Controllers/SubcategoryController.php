@@ -47,12 +47,14 @@ class SubcategoryController extends Controller
       'category_id' => 'required|numeric',
     ]);
 
-    Subcategory::create([
+    $subcategory = Subcategory::create([
       'name' => $request->name,
       'category_id' => $request->category_id,
     ]);
 
-    return redirect()->route('subcategory.index');
+    if ($subcategory) {
+      return redirect()->route('subcategory.index')->with('success', 'New subcategory created successfully!');
+    }
   }
 
   /**
@@ -100,7 +102,7 @@ class SubcategoryController extends Controller
     $subcategory->category_id = $request->category_id;
     $subcategory->save();
 
-    return redirect()->route('subcategory.index');
+    return redirect()->route('subcategory.index')->with('success', 'Subcategory updated successfully!');
   }
 
   /**
@@ -111,8 +113,12 @@ class SubcategoryController extends Controller
    */
   public function destroy(Subcategory $subcategory)
   {
+    foreach ($subcategory->items as $item) {
+      $item->delete();
+    }
+
     $subcategory->delete();
 
-    return redirect()->route('subcategory.index');
+    return back()->with('success', 'Subcategory and its related items deleted successfully');
   }
 }

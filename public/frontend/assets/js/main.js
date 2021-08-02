@@ -188,36 +188,6 @@ $(document).ready(function() {
         );
     }
 
-    // Slider For category pages / filter price
-    if (typeof noUiSlider === "object") {
-        var priceSlider = document.getElementById("price-slider");
-
-        // Check if #price-slider elem is exists if not return
-        // to prevent error logs
-        if (priceSlider == null) return;
-
-        noUiSlider.create(priceSlider, {
-            start: [0, 750],
-            connect: true,
-            step: 50,
-            margin: 200,
-            range: {
-                min: 0,
-                max: 1000
-            },
-            tooltips: true,
-            format: wNumb({
-                decimals: 0,
-                prefix: "$"
-            })
-        });
-
-        // Update Price Range
-        priceSlider.noUiSlider.on("update", function(values, handle) {
-            $("#filter-price-range").text(values.join(" - "));
-        });
-    }
-
     // Product countdown
     if ($.fn.countdown) {
         $(".product-countdown").each(function() {
@@ -800,7 +770,20 @@ $(document).ready(function() {
                                     }
                                 });
                                 // Initialize qty input
-                                quantityInputs();
+                                // quantityInputs();
+                                if ($.fn.inputSpinner) {
+                                    $(
+                                        "#product-quickView-quantity .qty-input"
+                                    ).inputSpinner({
+                                        decrementButton:
+                                            '<i class="icon-minus"></i>',
+                                        incrementButton:
+                                            '<i class="icon-plus"></i>',
+                                        groupClass: "input-spinner",
+                                        buttonsClass: "btn-spinner",
+                                        buttonsWidth: "26px"
+                                    });
+                                }
 
                                 let qty = 1;
 
@@ -821,6 +804,12 @@ $(document).ready(function() {
                                     };
 
                                     addToCart(item);
+                                    $(".btn-cart").addClass("btn-hide");
+                                    $(".btn-cart").attr("disabled", true);
+                                    setTimeout(() => {
+                                        $(".btn-cart").removeClass("btn-hide");
+                                        $(".btn-cart").attr("disabled", false);
+                                    }, 1000);
                                 });
                             },
                             open: function() {
